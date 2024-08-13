@@ -4,12 +4,12 @@ function kubevctx() {
     fi
 
     if [ -n "$ZSH_VERSION" ]; then
-        IFS=':' read -rA KUBECOFIGS <<< "$KUBECONFIG"
+        IFS=':' read -rA KUBECONFIGS <<< "$KUBECONFIG"
     else
-        IFS=':' read -ra KUBECOFIGS <<< "$KUBECONFIG"
+        IFS=':' read -ra KUBECONFIGS <<< "$KUBECONFIG"
     fi
-    
-    if [[ ! "${KUBECOFIGS[0]}" =~ ^.*/\.kubevctx/[0-9]+\.kubeconfig$ ]]; then
+ 
+    if [[ ! "${KUBECONFIGS[@]:0:1}" =~ ^.*/\.kubevctx/[0-9]+\.kubeconfig$ ]]; then
         mkdir -p "$HOME/.kubevctx"
         export KUBEVCTXCONFIG="$HOME/.kubevctx/$$.kubeconfig"
         touch "$KUBEVCTXCONFIG"
